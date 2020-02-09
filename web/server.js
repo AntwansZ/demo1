@@ -6,47 +6,64 @@ const express = require('express');
 const kafka = require('kafka-node');
 
 const app = express();
+
 app.use(cors())
 
+app.get('/favicon.ico', (req, res) => res.status(204));
 
+// getting last offest, in order not to load the 
+// whole queue every time
 
 var columns = ["ph", "iron_rate", "chlorine_rate", "magnesium_rate"];
-var client = new kafka.KafkaClient();
-var consumer = new kafka.Consumer(
-  client,
-  [ {topic: 'water', partition :0} ],
-  {autoCommit : false} 
-  );
+
+function read_pipe_from_beginning() {
+  var client = new kafka.KafkaClient();
+  var consumer = new kafka.Consumer(
+    client,
+    [ { topic: 'water', partition :0} ],
+    {autoCommit : false} 
+    );  
+}
+
+
+var options = {
+  kafkaHost:'localhost:9092',
+  fromOffset:'latest'
+}
+
+var consumer = new kafka.ConsumerGroup(
+    options, 
+    ['water']);
 //------------------------------------------------------------------
 
 
 var records = [];
 
+function parse_data(message) {
+  var raw_data = message.value;
+
+  tab_data = raw_data.split(",");
+  tab_data = tab_data.map(function(val, index) {
+      return parseFloat(val);
+    });
+  return {data : tab_data, time:message.timestamp};
+}
 
 consumer.on('message', function (message) {
     console.log(message);
+    records.push(parse_data(message));
 });
- 
 
-// function print_columns(cars) {
-//   console.log(cars[0]);
-// }
+app.get('/update', function(req,res) {
+  console.log("Update request from client");
+  res.send(JSON.stringify(records));
+  records = [];
+});
 
-// function print_first_car(cars) {
-//   console.log(cars[1]);
-// }
-
-// app.get('/', function(req, res) {
-//   console.log("page asked load");
-//   // console.log(req);
-//   res.send("Pong");
-// });
-
-// app.get('/loadData', function(req, res) {
-//   console.log("sending data to client");
-//   res.send(JSON.stringify(cars));
-//   console.log("data sent");
-// });
+app.get('/', function(req, res) {
+  console.log("Client asked for page");
+  res.send("Pong");
+});
 
 app.listen(3000, function () {
   console.log("App running on port 3000");

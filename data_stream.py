@@ -12,7 +12,7 @@ from kafka.errors import KafkaError
 class DataGenerator :
 
   def gen_ph(self):
-    return np.round(rd.random()*14, 1)
+    return np.round(np.random.normal(7, 0.2), 1)
 
   def gen_FE_rate(self):
     return np.round(np.random.normal(0.7, 0.2), 2)
