@@ -25,7 +25,7 @@ function draw_ph_graph(ctx) {
     data: {
       labels: graph_labels,
       datasets: [{
-        label: 'Dataset',
+        label: 'PH',
         backgroundColor: "FF0000",
         borderColor: "FF0000",
         data: graph_data,
@@ -36,7 +36,7 @@ function draw_ph_graph(ctx) {
       responsive: true,
       title: {
         display: true,
-        text: 'Graph'
+        text: 'PH of water'
       },
       tooltips: {
         mode: 'index',
@@ -51,14 +51,14 @@ function draw_ph_graph(ctx) {
           display: true,
           scaleLabel: {
             display: true,
-            labelString: 'Month'
+            labelString: 'Time'
           }
         }],
         yAxes: [{
           display: true,
           scaleLabel: {
             display: true,
-            labelString: 'Value'
+            labelString: 'PH Value'
           },
           ticks: {
             min :0, 
