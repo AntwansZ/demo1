@@ -4,7 +4,7 @@ import random as rd
 import numpy as np
 from time import sleep
 
-FILE_PATH = "resources/data.csv"
+# FILE_PATH = "resources/data.csv"
 
 class DataGenerator :
 
@@ -28,17 +28,26 @@ class DataGenerator :
       "chlorine_rate" : self.gen_CL_rate(), "magnesium_rate" : self.gen_Mg_rate()}
 
   def stream(self):
-    file = open(FILE_PATH, "w")
+    # file = open(FILE_PATH, "w")
 
     #writing csv header
 
-    file.write("ph,iron_rate,chlorine_rate,magnesium_rate\n")
+    # file.write("ph,iron_rate,chlorine_rate,magnesium_rate\n")
     while(True):
       rec = self.gen_record()
       str_to_write = str(rec['ph']) + "," + str(rec['iron_rate']) + ","
-      str_to_write += str(rec['chlorine_rate']) + "," + str(rec['magnesium_rate']) + "\n"
-      file.write(str_to_write)
+      str_to_write += str(rec['chlorine_rate']) + "," + str(rec['magnesium_rate'])
+      print(str_to_write)
       sleep(0.5)
 
-dg = DataGenerator()
-dg.stream()
+
+def main() :
+
+  # dg = DataGenerator()
+  # dg.stream()
+  while True :
+    print("pouet")
+    sleep(0.5)
+
+if __name__ == '__main__':
+  main()
