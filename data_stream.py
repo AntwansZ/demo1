@@ -7,6 +7,8 @@ from time import sleep
 from kafka import KafkaProducer
 from kafka.errors import KafkaError
 
+import sys
+
 # FILE_PATH = "resources/data.csv"
 
 class DataGenerator :
@@ -30,7 +32,7 @@ class DataGenerator :
     return {"ph" : self.gen_ph(), "iron_rate" : self.gen_FE_rate(), 
       "chlorine_rate" : self.gen_CL_rate(), "magnesium_rate" : self.gen_Mg_rate()}
 
-  def stream(self, kafka_pipe):
+  def stream(self, kafka_pipe, station_number):
     # file = open(FILE_PATH, "w")
 
     #writing csv header
@@ -40,6 +42,7 @@ class DataGenerator :
       rec = self.gen_record()
       str_to_write = str(rec['ph']) + "," + str(rec['iron_rate']) + ","
       str_to_write += str(rec['chlorine_rate']) + "," + str(rec['magnesium_rate'])
+      str_to_write += "," + str(station_number)
       kafka_pipe.send('water', str_to_write.encode())
       sleep(0.5)
 
@@ -50,9 +53,14 @@ def connect_kafka_producer() :
 # connect_kafka_producer()
 
 def main() :
+  if(len(sys.argv)) > 1 :
+    no_station = sys.argv[1]
+    print(no_station)
+  else :
+    sys.exit("A station number needs to be specified")
   producer = connect_kafka_producer()
   dg = DataGenerator()
-  dg.stream(producer)
+  dg.stream(producer, no_station)
 
 if __name__ == '__main__':
   main()

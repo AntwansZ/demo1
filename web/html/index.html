@@ -46,14 +46,14 @@
         <h1 class="h2">Demo</h1>
       </div>
       <div class="row">
-        <div class="col-3">
+        <div class="col-4", id="div_can_1">
           <canvas class="my-4 w-100" id="can1" width="900" height="800"></canvas>
         </div>
-        <div class="col-6">
+        <div class="col-4", id="div_can_2">
           <canvas class="my-4 w-100" id="ph_graph_canvas" width="900" height="800"></canvas>
         </div>
-        <div class="col-3">
-          <canvas class="my-4 w-100" id="can2" width="900" height="800"></canvas>
+        <div class="col-4", id="div_can_3">
+          <canvas class="my-4 w-100" id="can3" width="900" height="800"></canvas>
         </div>
       </div>
     </main>
@@ -83,6 +83,8 @@
       <script>
     // Beginning code
     
+    document.getElementById("div_can_1").style.display = "none";
+
     // init jquery
     $.ajax("http://localhost:3000/", {
       type: 'GET',
@@ -90,6 +92,7 @@
     });
 
     var ctx = document.getElementById('ph_graph_canvas').getContext('2d');
+    
     draw_ph_graph(ctx);
 
     window.setInterval(
@@ -99,9 +102,7 @@
           dataType: 'json'
         })
         .done(function(data) {
-        // console.log("Update received");
-        //ph_graph = draw_ph_graph(ctx, data);
-        //ph_graph.update();
+
         update_ph_data(data);
         update_ph_graph();
       });
