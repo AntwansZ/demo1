@@ -1,106 +1,81 @@
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- <link rel="icon" href="../../../../favicon.ico"> -->
 
-    <title>Demo</title>
+  <title>Demo</title>
 
-    <!-- Bootstrap core CSS -->
-    <!-- <link href="../../dist/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <!-- Bootstrap core CSS -->
+  <!-- <link href="../../dist/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 
-    <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
-  </head>
+  <!-- Custom styles for this template -->
+  <link href="dashboard.css" rel="stylesheet">
+</head>
 
-  <body>
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"></a>
+<body>
+  <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"></a>
 <!--       <input class="form-control form-control-dark w-100" type="text" placeholder="Vehicle Brand Search" aria-label="Vehicle Brand Search", id="searchvehicle">
- -->      <ul class="navbar-nav px-3">
-      </ul>
+-->      <ul class="navbar-nav px-3">
+</ul>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#" id="ddis">
+              <span data-feather="bar-chart-2"></span>
+              Data Distribution <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </nav>
 
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="#" id="ddis">
-                  <span data-feather="bar-chart-2"></span>
-                  Data Distribution <span class="sr-only">(current)</span>
-                </a>
-              </li>
-<!--               <li class="nav-item">
-                <a class="nav-link" href="#" id="co2ee">
-                  <span data-feather="bar-chart-2"></span>
-                  CO2 Emission Evolution
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="cae">
-                  <span data-feather="bar-chart-2"></span>
-                  Consumption and Emissions
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="tr">
-                  <span data-feather="bar-chart-2"></span>
-                  Transmission Emissions
-                </a>
-              </li>
- -->            </ul>
-          </div>
-        </nav>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Demo</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+        </div>
+      </div>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Demo</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <!-- <div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-secondary" type="button" onclick="switchDistributionGraph()">Switch X Axis</button>
-              </div> -->
-            </div>
-          </div>
-
-<!--           <canvas class="my-4 w-100" id="chart_distrib" width="900" height="380"></canvas>
-          <canvas class="my-4 w-100" id="chart_distrib2" width="900" height="380"></canvas>
-          <canvas class="my-4 w-100" id="chart_distrib3" width="900" height="380"></canvas> -->
           <canvas class="my-4 w-100" id="ph_graph_canvas" width="900" height="800"></canvas>
-
           
         </main>
       </div>
     </div>
 
     <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.js"></script>
-    <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.js"></script>
+      <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-    <!-- <script src="viz.js"></script> -->
-    <script scr="https://cdn.jsdelivr.net/npm/chartjs-chart-box-and-violin-plot@1.1.2/build/Chart.BoxPlot.min.js"></script>
+      <!-- <script src="viz.js"></script> -->
+      <script scr="https://cdn.jsdelivr.net/npm/chartjs-chart-box-and-violin-plot@1.1.2/build/Chart.BoxPlot.min.js"></script>
 
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-      feather.replace()
-    </script>
+      <!-- Icons -->
+      <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+      <script>
+        feather.replace()
+      </script>
 
-    <script src="tambouille.js"></script>
+      <script src="tambouille.js"></script>
 
-    <script>
+      <script>
     // Beginning code
     
     // init jquery
@@ -128,107 +103,6 @@
 
       }, 1000);
 
-
-      // buildCo2Data(data);
-      // buildCO2MileageData(data);
-      // buildVehiclesData(data);
-      // getTransmissions(data);
-      
-      
-      // var ctx = document.getElementById('chart_distrib').getContext('2d');
-      // co2mileagegraph = drawCO2MileageGraph(ctx);
-
-      // // console.log(co2mileagegraph);
-      
-
-      // var ctx2 = document.getElementById('chart_distrib2').getContext('2d');
-      // co2graphcanvas = drawCo2Graph(ctx2);
-      
-
-      // var ctx3 = document.getElementById('chart_distrib3').getContext('2d');
-      // vehiclesgraphcanvas = drawVehiclesGraph(ctx3);
-
-
-      // var ctx4 = document.getElementById('chart_distrib4').getContext('2d');
-      // transmissioncanvas = drawTransmission(ctx4);
-
-      // console.log(transmissioncanvas);
-      
-      // showDistributionGraph();
-
-    // function showCO2Graph() {
-    //   document.getElementById('chart_distrib2').style.display = "initial";
-    //   document.getElementById('chart_distrib3').style.display = "none";
-    //   document.getElementById('chart_distrib').style.display = "none";
-    //   document.getElementById('chart_distrib4').style.display = "none";
-    // };
-
-    // function showDistributionGraph() {
-    //   document.getElementById('chart_distrib3').style.display = "initial";
-    //   document.getElementById('chart_distrib2').style.display = "none";
-    //   document.getElementById('chart_distrib').style.display = "none";
-    //   document.getElementById('chart_distrib4').style.display = "none";
-    // };
-
-    // function showCO2Mileage() {
-    //   document.getElementById('chart_distrib').style.display = "initial";
-    //   document.getElementById('chart_distrib2').style.display = "none";
-    //   document.getElementById('chart_distrib3').style.display = "none";
-    //   document.getElementById('chart_distrib4').style.display = "none";
-    // };
-
-    // function showTransmission() {
-    //   document.getElementById('chart_distrib').style.display = "none";
-    //   document.getElementById('chart_distrib2').style.display = "none";
-    //   document.getElementById('chart_distrib3').style.display = "none";
-    //   document.getElementById('chart_distrib4').style.display = "initial";
-    // };
-
-    // $('#ddis').on('click', function (e) {
-    //   e.preventDefault();
-    //   showDistributionGraph();
-    //   $('#ddis').addClass("active");
-    //   $('#co2ee').removeClass("active");
-    //   $('#cae').removeClass("active");
-    //   $('#tr').removeClass("active");
-    // });
-
-    // $('#co2ee').on('click', function (e) {
-    //   e.preventDefault();
-    //   showCO2Graph();
-    //   $('#ddis').removeClass("active");
-    //   $('#co2ee').addClass("active");
-    //   $('#cae').removeClass("active");
-    //   $('#tr').removeClass("active");
-    // });
-
-
-    // $('#cae').on('click', function (e) {
-    //   e.preventDefault();
-    //   showCO2Mileage();
-    //   $('#ddis').removeClass("active");
-    //   $('#co2ee').removeClass("active");
-    //   $('#cae').addClass("active");
-    //   $('#tr').removeClass("active");
-    // });
-
-    // $('#tr').on('click', function (e) {
-    //   e.preventDefault();
-    //   showTransmission();
-    //   $('#ddis').removeClass("active");
-    //   $('#co2ee').removeClass("active");
-    //   $('#cae').removeClass("active");
-    //   $('#tr').addClass("active");
-    // });
-
-    // document.getElementById("searchvehicle").addEventListener("keyup", function(event) {
-    //   event.preventDefault();
-
-    //   if(event.keyCode === 13) {
-    //     selectBrand(document.getElementById("searchvehicle").value);
-    //   }
-    //   });
-
-    </script>
-  </body>
+  </script>
+</body>
 </html>
