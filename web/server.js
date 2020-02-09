@@ -2,9 +2,8 @@
 // const fs = require('fs');
 const cors = require('cors');
 const express = require('express');
-const {spawn} = require('child_process');
 
-py = spawn('python', ['../data_stream.py']);
+const kafka = require('kafka-node');
 
 const app = express();
 app.use(cors())
@@ -12,18 +11,20 @@ app.use(cors())
 
 
 var columns = ["ph", "iron_rate", "chlorine_rate", "magnesium_rate"];
- 
+var client = new kafka.KafkaClient();
+var consumer = new kafka.Consumer(
+  client,
+  [ {topic: 'water', partition :0} ],
+  {autoCommit : false} 
+  );
 //------------------------------------------------------------------
 
 
 var records = [];
 
-py.stdout.on('data', function(data) {
-  console.log(data.toString());
-});
 
-py.on('close', (code) => {
-  console.log("python program terminated with code ${code}");
+consumer.on('message', function (message) {
+    console.log(message);
 });
  
 

@@ -4,6 +4,9 @@ import random as rd
 import numpy as np
 from time import sleep
 
+from kafka import KafkaProducer
+from kafka.errors import KafkaError
+
 # FILE_PATH = "resources/data.csv"
 
 class DataGenerator :
@@ -27,7 +30,7 @@ class DataGenerator :
     return {"ph" : self.gen_ph(), "iron_rate" : self.gen_FE_rate(), 
       "chlorine_rate" : self.gen_CL_rate(), "magnesium_rate" : self.gen_Mg_rate()}
 
-  def stream(self):
+  def stream(self, kafka_pipe):
     # file = open(FILE_PATH, "w")
 
     #writing csv header
@@ -37,17 +40,19 @@ class DataGenerator :
       rec = self.gen_record()
       str_to_write = str(rec['ph']) + "," + str(rec['iron_rate']) + ","
       str_to_write += str(rec['chlorine_rate']) + "," + str(rec['magnesium_rate'])
-      print(str_to_write)
+      kafka_pipe.send('water', str_to_write.encode())
       sleep(0.5)
 
+def connect_kafka_producer() :
+  producer = KafkaProducer()
+  return producer
+
+# connect_kafka_producer()
 
 def main() :
-
-  # dg = DataGenerator()
-  # dg.stream()
-  while True :
-    print("pouet")
-    sleep(0.5)
+  producer = connect_kafka_producer()
+  dg = DataGenerator()
+  dg.stream(producer)
 
 if __name__ == '__main__':
   main()
