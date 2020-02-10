@@ -43,10 +43,11 @@ function parse_data(message) {
   var raw_data = message.value;
 
   tab_data = raw_data.split(",");
+  var station_no = parseInt(tab_data.pop());
   tab_data = tab_data.map(function(val, index) {
       return parseFloat(val);
     });
-  return {data : tab_data, time:message.timestamp};
+  return {data : tab_data, time:message.timestamp, station: station_no};
 }
 
 consumer.on('message', function (message) {

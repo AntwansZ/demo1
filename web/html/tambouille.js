@@ -1,34 +1,31 @@
-graph_data = [];
-graph_labels = [];
-raw_data = [];
-
-var ph_graph;
-
-function update_ph_data(new_data) {
-  new_data.forEach(
-    function(element) {
-      graph_data.push(element.data[0]);
-      graph_labels.push(element.time.split("T")[1].split(".")[0]);
-      raw_data.push(element);
-    });
-  console.log(graph_data);  
+function show_hide_div(div_id){
+  var x = document.getElementById(div_id);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
 }
 
-function update_ph_graph() {
-  window.ph_graph.update();
+
+function update_ph_data(graph, new_data) {
+  graph.config.data.datasets[0].data.push(new_data.data[0]);
+  graph.config.data.labels.push(new_data.time.split("T")[1].split(".")[0]);
+  // console.log(graph_data);  
 }
 
-function draw_ph_graph(ctx) {
-
-  ph_graph = new Chart(ctx, {
+function draw_ph_graph(ctx, init_data, init_labels, station) {
+  var text = "PH of water station" + station.toString();
+  console.log(text);
+  return new Chart(ctx, {
     type: 'line',
     data: {
-      labels: graph_labels,
+      labels: init_labels,
       datasets: [{
         label: 'PH',
         backgroundColor: "FF0000",
         borderColor: "FF0000",
-        data: graph_data,
+        data: init_data,
         fill: false,
       }]
     },
@@ -36,7 +33,7 @@ function draw_ph_graph(ctx) {
       responsive: true,
       title: {
         display: true,
-        text: 'PH of water'
+        text: text
       },
       tooltips: {
         mode: 'index',

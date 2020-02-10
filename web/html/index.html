@@ -50,7 +50,7 @@
           <canvas class="my-4 w-100" id="can1" width="900" height="800"></canvas>
         </div>
         <div class="col-4", id="div_can_2">
-          <canvas class="my-4 w-100" id="ph_graph_canvas" width="900" height="800"></canvas>
+          <canvas class="my-4 w-100" id="can2" width="900" height="800"></canvas>
         </div>
         <div class="col-4", id="div_can_3">
           <canvas class="my-4 w-100" id="can3" width="900" height="800"></canvas>
@@ -84,6 +84,9 @@
     // Beginning code
     
     document.getElementById("div_can_1").style.display = "none";
+    document.getElementById("div_can_2").style.display = "none";
+    document.getElementById("div_can_3").style.display = "none";
+
 
     // init jquery
     $.ajax("http://localhost:3000/", {
@@ -91,9 +94,11 @@
       dataType :'json'
     });
 
-    var ctx = document.getElementById('ph_graph_canvas').getContext('2d');
+    var graphs = {};
     
-    draw_ph_graph(ctx);
+    // var ctx = document.getElementById('can1').getContext('2d');
+
+    // draw_ph_graph(ctx, [], [], "1");
 
     window.setInterval(
       function() {
@@ -102,9 +107,35 @@
           dataType: 'json'
         })
         .done(function(data) {
+          // data is an array of JSON objects
+          console.log(data);
+          if(data.length > 0) {
+            data.forEach(
+              function(element) {
 
-        update_ph_data(data);
-        update_ph_graph();
+                // element (object containing a timestamp, ph data and station
+                // number value)
+
+                if(! (element.station in graphs)) {
+                  var ctx = document.getElementById('can' + element.station)
+                  .getContext('2d');
+                  show_hide_div('div_can_' + element.station)
+                  var ph = element.data[0];
+                  var time = element.time.split("T")[1].split(".")[0]
+
+                  graphs[element.station] = draw_ph_graph(ctx, [ph], [time], element.station) 
+                }
+                else {
+                  update_ph_data(graphs[element.station], element);
+                  graphs[element.station].update();
+                }
+
+              });
+
+            // update some graph
+          }
+          //otherwise do nothing
+
       });
 
       }, 1000);
